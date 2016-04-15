@@ -1,4 +1,4 @@
-__author__ = 'dnt'
+__author__ = 'Stepiuk'
 
 
 def print_item(key, value):

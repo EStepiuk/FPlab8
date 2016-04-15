@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-__author__ = 'dnt'
+__author__ = 'Stepiuk'
 from functools import partial
 from os import system
 from util import notify
