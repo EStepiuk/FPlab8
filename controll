@@ -1,0 +1,59 @@
+#!/usr/bin/python3
+__author__ = 'dnt'
+from functools import partial
+from os import system
+from util import notify
+import getch
+import data
+import view
+
+list_phone_book = partial(view.list_items, data=data.phone_book)
+
+
+def find_by_key():
+    key = input('Name: ')
+    view.print_item(key, data.find_item_by_key(key))
+
+
+def find_by_value():
+    value = input('Number: ')
+    view.print_item(data.find_item_by_value(value), value)
+
+
+@notify(view.print_menu)
+def list_all():
+    system('clear')
+    list_phone_book()
+
+
+@notify(list_all)
+def add_item():
+    data.add_new_item(input('Name: '), input('Number: '))
+
+
+@notify(list_all)
+def delete_item():
+    data.delete_item(input('Name: '))
+
+
+key_action_dict = {'e': exit,
+                   's': find_by_key,
+                   'n': find_by_value,
+                   ' ': list_all,
+                   'a': add_item,
+                   'd': delete_item}
+
+
+def keypress_handler(_input):
+    if _input in key_action_dict:
+        key_action_dict[_input]()
+
+
+def main_loop():
+    list_all()
+    while True:
+        keypress_handler(getch.getch())
+
+
+if __name__ == '__main__':
+    main_loop()
